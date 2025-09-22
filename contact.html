@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Cyber Defender</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(120, 119, 198, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 119, 198, 0.12) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(120, 119, 198, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #7877c6;
+        }
+        /* Page Header */
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Contact Methods */
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            border-radius: 25px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(120, 119, 198, 0.05), rgba(255, 119, 198, 0.05));
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover::before {
+            opacity: 1;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(120, 119, 198, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-card p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-btn {
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(120, 119, 198, 0.3);
+        }
+
+        /* Contact Form and Info Grid */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            border-radius: 25px;
+            padding: 3rem;
+        }
+
+        .contact-form h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(120, 119, 198, 0.3);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #7877c6;
+            box-shadow: 0 0 0 3px rgba(120, 119, 198, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .priority-select {
+            background: rgba(120, 119, 198, 0.1);
+            border-color: rgba(120, 119, 198, 0.4);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(120, 119, 198, 0.4);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            border-radius: 25px;
+            padding: 3rem;
+        }
+
+        .contact-info h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(120, 119, 198, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(120, 119, 198, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(120, 119, 198, 0.1);
+            border-color: rgba(120, 119, 198, 0.3);
+        }
+
+        .info-icon {
+            font-size: 1.8rem;
+            margin-right: 1rem;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            width: 40px;
+            flex-shrink: 0;
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-content h4 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .info-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Office Hours */
+        .office-hours {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            border-radius: 25px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .office-hours h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .hours-category {
+            background: rgba(120, 119, 198, 0.08);
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .hours-category:hover {
+            background: rgba(120, 119, 198, 0.12);
+            border-color: rgba(120, 119, 198, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .hours-category h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(120, 119, 198, 0.1);
+        }
+
+        .hours-item:last-child {
+            border-bottom: none;
+        }
+
+        .hours-day {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hours-time {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: linear-gradient(135deg, rgba(255, 119, 198, 0.2), rgba(120, 119, 198, 0.2));
+            border: 2px solid rgba(255, 119, 198, 0.4);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emergency-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: emergencyGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes emergencyGlow {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .emergency-banner h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ff77c6;
+            position: relative;
+            z-index: 10;
+        }
+
+        .emergency-banner p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .emergency-btn {
+            background: linear-gradient(45deg, #ff4757, #ff3742);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            z-index: 10;
+            font-size: 1.1rem;
+        }
+
+        .emergency-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 71, 87, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .hours-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header {
+                padding: 6rem 1rem 3rem;
+            }
+            
+            .contact-form,
+            .contact-info,
+            .office-hours {
+                padding: 2rem;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(45deg, rgba(39, 174, 96, 0.2), rgba(46, 213, 115, 0.2));
+            border: 1px solid rgba(39, 174, 96, 0.4);
+            border-radius: 15px;
+            padding: 1rem;
+            margin-top: 1rem;
+            color: #2ecc71;
+            display: none;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">🛡️ CYBER DEFENDER</div>
+            <ul class="nav-links">
+                <li><a href="home.html">HOME</a></li>
+                <li><a href="services.html">SERVICES</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="contact.html" class="active">CONTACT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Contact Us</h1>
+        <p>Ready to secure your digital life? Get in touch with our cybersecurity experts today. We're here to help 24/7.</p>
+    </div>
+
+    <div class="container">
+        <!-- Emergency Banner -->
+        <div class="section">
+            <div class="emergency-banner">
+                <h3>🚨 Security Emergency?</h3>
+                <p>If you're experiencing an active cyber attack or security breach, don't wait - contact our emergency response team immediately.</p>
+                <a href="tel:+15559111111" class="emergency-btn">🔥 Emergency Hotline: +855 015620183</a>
+            </div>
+        </div>
+
+        <!-- Quick Contact Methods -->
+        <div class="section">
+            <div class="contact-methods">
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Call Us</h3>
+                    <p>Speak directly with our security experts for immediate assistance and personalized guidance.</p>
+                    <a href="" class="contact-btn">+855 015620183</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <h3>Live Chat</h3>
+                    <p>Get instant answers to your questions with our 24/7 live chat support team.</p>
+                    <button class="contact-btn" onclick="openLiveChat()">Start Chat</button>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email Us</h3>
+                    <p>Send us detailed questions and receive comprehensive responses within 4 hours.</p>
+                    <a href="" class="contact-btn">daraleapyt@cyberdefender.com</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📅</div>
+                    <h3>Schedule Consultation</h3>
+                    <p>Book a free 30-minute security consultation with our certified experts.</p>
+                    <button class="contact-btn" onclick="scheduleConsultation()">Book Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Contact Form and Info -->
+        <div class="section">
+            <div class="contact-content">
+                <div class="contact-form">
+                    <h2>Send Us a Message</h2>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company (Optional)</label>
+                                <input type="text" id="company" name="company">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Service Interest</label>
+                            <select id="service" name="service">
+                                <option value="">Select a service...</option>
+                                <option value="security-audit">Personal Security Audit</option>
+                                <option value="protection-suite">Complete Protection Suite</option>
+                                <option value="network-security">Network Security</option>
+                                <option value="training">Cybersecurity Training</option>
+                                <option value="consultation">Security Consultation</option>
+                                <option value="emergency">Emergency Response</option>
+                                <option value="corporate">Corporate Solutions</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="priority">Priority Level</label>
+                            <select id="priority" name="priority" class="priority-select">
+                                <option value="low">Low Priority - General inquiry</option>
+                                <option value="medium">Medium Priority - Need help this week</option>
+                                <option value="high">High Priority - Need help within 24 hours</option>
+                                <option value="emergency">🚨 EMERGENCY - Active security incident</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" placeholder="Please describe your security concerns or how we can help you..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Send Message</button>
+                        <div id="successMessage" class="success-message">
+                            ✅ Thank you! Your message has been sent successfully. We'll get back to you within 4 hours.
+                        </div>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <h2>Get In Touch</h2>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div class="info-content">
+                            <h4>Our Address</h4>
+                            <p>Institute the Technologie Of Cambodia<br>Phnom Penh</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">📞</div>
+                        <div class="info-content">
+                            <h4>Phone Numbers</h4>
+                            <p><strong>Main Line:</strong> +855 015620193<br><strong>Emergency:</strong> 911<br><strong>Sales:</strong> 69</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">📧</div>
+                        <div class="info-content">
+                            <h4>Email Addresses</h4>
+                            <p><strong>General:</strong> daraleapyt@cyberdefender.com<br><strong>Support:</strong> daraleapyt@cyberdefender.com<br><strong>Sales:</strong> daraleapyt@cyberdefender.com</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">🌐</div>
+                        <div class="info-content">
+                            <h4>Social Media</h4>
+                            <p><strong>Follow us:</strong><br>@CyberDefenderPro on all platforms<br>LinkedIn | Twitter | Facebook | YouTube</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">⚡</div>
+                        <div class="info-content">
+                            <h4>Response Times</h4>
+                            <p><strong>Email:</strong> Within 4 hours<br><strong>Live Chat:</strong> &lt; 30 seconds<br><strong>Emergency:</strong> Immediate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Office Hours -->
+        <div class="section">
+            <div class="office-hours">
+                <h2>Office Hours & Availability</h2>
+                <div class="hours-grid">
+                    <div class="hours-category">
+                        <h3>🏢 General Support</h3>
+                        <div class="hours-item">
+                            <span class="hours-day">Monday - Friday</span>
+                            <span class="hours-time">8:00 AM - 8:00 PM EST</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="hours-day">Saturday</span>
+                            <span class="hours-time">10:00 AM - 6:00 PM EST</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="hours-day">Sunday</span>
+                            <span class="hours-time">12:00 PM - 5:00 PM EST</span>
+                        </div>
+                    </div>
+
+                    <div class="hours-category">
+                        <h3>🚨 Emergency Support</h3>
+                        <div class="hours-item">
+                            <span class="hours-day">Emergency Hotline</span>
+                            <span class="hours-time">24/7 Available</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="hours-day">Critical Incidents</span>
+                            <span class="hours-time">24/7 Available</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="hours-day">Response Time</span>
+                            <span class="hours-time">&lt; 15 Minutes</span>
+                        </div>
+                    </div>
+
+                    <div class="hours-category">
+                        <h3>💬 Live Chat & Email</h3>
+                        <div class="hours-item">
+                            <span class="hours-day">Live Chat</span>
+                            <span class="hours-time">24/7 Available</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="hours-day">Email Response</span>
+                            <span class="hours-time">Within 4 Hours</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="hours-day">Priority Support</span>
+                            <span class="hours-time">Within 1 Hour</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            
+            // Reset form
+            this.reset();
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+            
+            // Log form data (in real app, this would be sent to server)
+            console.log('Form submitted:', formObject);
+            
+            // Handle emergency priority
+            if (formObject.priority === 'emergency') {
+                alert('🚨 EMERGENCY DETECTED!\n\nYour message has been marked as URGENT and sent to our emergency response team. You should also call our emergency hotline immediately: +1 (555) 911-1111');
+            }
+        });
+
+        // Live chat function
+        function openLiveChat() {
+            alert('🔄 Connecting you to live chat...\n\nIn a real implementation, this would open your chat widget or redirect to your live chat platform.');
+        }
+
+        // Schedule consultation function
+        function scheduleConsultation() {
+            alert('📅 Opening booking calendar...\n\nIn a real implementation, this would open your scheduling system (like Calendly, Acuity, etc.).');
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 15, 35, 0.98)';
+                navbar.style.padding = '0.5rem 0';
+            } else {
+                navbar.style.background = 'rgba(15, 15, 35, 0.95)';
+                navbar.style.padding = '1rem 0';
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Priority selector styling
+        document.getElementById('priority').addEventListener('change', function() {
+            const select = this;
+            const value = select.value;
+            
+            // Reset classes
+            select.className = select.className.replace(/priority-\w+/g, '');
+            
+            // Add appropriate class based on priority
+            if (value === 'emergency') {
+                select.style.background = 'rgba(255, 71, 87, 0.2)';
+                select.style.borderColor = 'rgba(255, 71, 87, 0.5)';
+                select.style.color = '#ff4757';
+            } else if (value === 'high') {
+                select.style.background = 'rgba(255, 165, 0, 0.2)';
+                select.style.borderColor = 'rgba(255, 165, 0, 0.5)';
+                select.style.color = '#ffa500';
+            } else if (value === 'medium') {
+                select.style.background = 'rgba(255, 193, 7, 0.2)';
+                select.style.borderColor = 'rgba(255, 193, 7, 0.5)';
+                select.style.color = '#ffc107';
+            } else {
+                select.style.background = 'rgba(120, 119, 198, 0.1)';
+                select.style.borderColor = 'rgba(120, 119, 198, 0.4)';
+                select.style.color = '#fff';
+            }
+        });
+
+        // Form validation enhancement
+        document.querySelectorAll('input[required], textarea[required]').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (!this.value.trim()) {
+                    this.style.borderColor = 'rgba(255, 71, 87, 0.5)';
+                    this.style.boxShadow = '0 0 0 2px rgba(255, 71, 87, 0.2)';
+                } else {
+                    this.style.borderColor = 'rgba(39, 174, 96, 0.5)';
+                    this.style.boxShadow = '0 0 0 2px rgba(39, 174, 96, 0.2)';
+                }
+            });
+
+            field.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.style.borderColor = 'rgba(39, 174, 96, 0.5)';
+                    this.style.boxShadow = '0 0 0 2px rgba(39, 174, 96, 0.2)';
+                }
+            });
+        });
+
+        // Email validation
+        document.getElementById('email').addEventListener('blur', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && !emailRegex.test(email)) {
+                this.style.borderColor = 'rgba(255, 71, 87, 0.5)';
+                this.style.boxShadow = '0 0 0 2px rgba(255, 71, 87, 0.2)';
+            } else if (email) {
+                this.style.borderColor = 'rgba(39, 174, 96, 0.5)';
+                this.style.boxShadow = '0 0 0 2px rgba(39, 174, 96, 0.2)';
+            }
+        });
+
+        // Phone number formatting
+        document.getElementById('phone').addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, '');
+            
+            if (value.length >= 6) {
+                value = value.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+            } else if (value.length >= 3) {
+                value = value.replace(/(\d{3})(\d{0,3})/, '($1) $2');
+            }
+            
+            this.value = value;
+        });
+
+        // Add sparkle effect on form interaction
+        document.querySelectorAll('input, textarea, select').forEach(field => {
+            field.addEventListener('focus', function() {
+                createSparkles(this.getBoundingClientRect());
+            });
+        });
+
+        function createSparkles(rect) {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.style.position = 'fixed';
+                    sparkle.style.left = (rect.left + Math.random() * rect.width) + 'px';
+                    sparkle.style.top = (rect.top + Math.random() * rect.height) + 'px';
+                    sparkle.style.width = '4px';
+                    sparkle.style.height = '4px';
+                    sparkle.style.background = 'linear-gradient(45deg, #7877c6, #ff77c6)';
+                    sparkle.style.borderRadius = '50%';
+                    sparkle.style.pointerEvents = 'none';
+                    sparkle.style.zIndex = '9999';
+                    sparkle.style.animation = 'sparkleAnim 1s ease-out forwards';
+                    
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 1000);
+                }, i * 100);
+            }
+        }
+
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkleAnim {
+                0% {
+                    transform: scale(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(1) rotate(180deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
